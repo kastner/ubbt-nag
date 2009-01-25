@@ -33,6 +33,10 @@
       margin-bottom: 0.444em; /* 16.0px at 36px base */
     }
     
+    h1 img {
+      width: 13.667em; /* 492.0px at 36px base */
+    }
+    
     .about {
       font-size: 1.125em;
       width: 30.222em; /* 544.0px at 18px base */
@@ -44,12 +48,20 @@
       height: 1.778em; /* 32.0px at 18px base */
       background: url('images/bottom-white-grad.png') repeat-x bottom;
       line-height: 0.1em;
+      position: relative;
     }
     
     h3.information-heading img {
       width: 1.333em; /* 24.0px at 18px base */
       margin: 0.2em 1.111em; /* 20.0px at 18px base */
       vertical-align: -0.5em;
+    }
+    
+    h3.information-heading span {
+      font-size: 0.667em; /* 12.0px at 18px base */
+      right: 1em;
+      margin-top: 1.3em;
+      position: absolute;
     }
     
     #member-groupings {
@@ -96,20 +108,32 @@
 </head>
 <body id="nag">
   <div id="page">
-    <h1><img src="images/ubbt-journal-reqs.png" width="492" height="32" alt="Ubbt Journal Requirment"/></h1>
+    <h1><img src="images/ubbt-journal-reqs.png" alt="Ubbt Journal Requirment"/></h1>
     <p class="about">Every UBBT participant is required to make a weekly journal entry on the UBBT web site. Find someone who is falling behind, and help them by sending a friendly email.</p>
     
     <div id="member-groupings">
       <div class="on-target">
-        <h3 class="information-heading"><img src="images/green-check.png" alt="Green Check">12 Members are on target &ndash; and entry in the past week</h3>
+        <h3 class="information-heading">
+          <img src="images/green-check.png" alt="Green Check"/>
+          12 Members are on target &ndash; an entry in the past week 
+          <span>[ <a href="#on-target">show</a> ]</span>
+        </h3>
       </div>
 
       <div class="falling-behind">
-        <h3 class="information-heading"><img src="images/yellow-bang.png" alt="Yellow Exclamation">12 Members are falling behind &ndash; Some entries</h3>
+        <h3 class="information-heading">
+          <img src="images/yellow-bang.png" alt="Yellow Exclamation"/>
+          12 Members are falling behind &ndash; Some entries
+          <span>[ <a href="#falling-behind">show</a> ]</span>
+        </h3>
       </div>
 
       <div class="no-entries">
-        <h3 class="information-heading"><img src="images/red-x.png" alt="Red X">12 Members have no entries yet</h3>
+        <h3 class="information-heading">
+          <img src="images/red-x.png" alt="Red X"/>
+          12 Members have no entries yet
+          <span>[ <a href="#no-entries">show</a> ]</span>
+        </h3>
         
         <div class="member-collection">
           Something<br/>
