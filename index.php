@@ -73,15 +73,15 @@
       margin-bottom: 2em;
     }
         
-    #member-groupings .on-target h3 {
+    #member-groupings #on-target h3 {
       background-color: #92c076;
     }
     
-    #member-groupings .falling-behind h3 {
+    #member-groupings #falling-behind h3 {
       background-color: #ece54d;
     }
 
-    #member-groupings .no-entries h3 {
+    #member-groupings #no-entries h3 {
       background-color: #f36f65;
     }
     
@@ -112,23 +112,27 @@
     <p class="about">Every UBBT participant is required to make a weekly journal entry on the UBBT web site. Find someone who is falling behind, and help them by sending a friendly email.</p>
     
     <div id="member-groupings">
-      <div class="on-target">
+      <div id="on-target">
         <h3 class="information-heading">
           <img src="images/green-check.png" alt="Green Check"/>
           12 Members are on target &ndash; an entry in the past week 
           <span>[ <a href="#on-target">show</a> ]</span>
         </h3>
+        
+        <div class="member-collection"></div>
       </div>
 
-      <div class="falling-behind">
+      <div id="falling-behind">
         <h3 class="information-heading">
           <img src="images/yellow-bang.png" alt="Yellow Exclamation"/>
           12 Members are falling behind &ndash; Some entries
           <span>[ <a href="#falling-behind">show</a> ]</span>
         </h3>
+        
+        <div class="member-collection"></div>
       </div>
 
-      <div class="no-entries">
+      <div id="no-entries">
         <h3 class="information-heading">
           <img src="images/red-x.png" alt="Red X"/>
           12 Members have no entries yet
@@ -147,5 +151,27 @@
       <h3 class="information-heading"><img src="images/yellow-star.png" alt="Yellow Star"/> Spotlight</h3>
     </div>
   </div>
+  
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      $(".member-collection").hide();
+      
+      $("h3.information-heading a").click(function() {
+        var div = $(this).parents("div").children("div:first");
+        div.toggle();
+        if ($(this).html() == "hide") {
+          document.location.hash = "";
+          $(this).html("show");
+        }
+        else {
+          $(this).html("hide");
+        }
+      });
+      
+      if (document.location.hash) {
+        $(document.location.hash).find("h3.information-heading a").click();
+      }
+    });
+  </script>
 </body>
 </html>
