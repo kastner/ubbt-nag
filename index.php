@@ -1,3 +1,11 @@
+<?php
+
+require('data.php');
+$last_week = peopleWithEntriesDaysAgo(7);
+$last_4_months = peopleWithEntriesDaysAgo(7, (30 * 4));
+$slackers = peopleWithEntriesDaysAgo((30*4) + 1, 999999);
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +26,7 @@
     h2 { font-size:1.5em;   /* 16x1.5=24 */ }
     h3 { font-size:1.125em; /* 16x1.125=18 */ }
     h4 { font-size:0.875em; /* 16x0.875=14 */ }
-    p  { font-size:0.75em;  /* 16x0.75=12 */ }
+    p, .member-collection li  { font-size:0.75em;  /* 16x0.75=12 */ }
     
     #page {
       font-size: 100%;
@@ -115,17 +123,27 @@
       <div id="on-target">
         <h3 class="information-heading">
           <img src="images/green-check.png" alt="Green Check"/>
-          12 Members are on target &ndash; an entry in the past week 
+          <?php echo plural(count($last_week), "Member", "s") ?> 
+          are on target &ndash; an entry in the past week 
           <span>[ <a href="#on-target">show</a> ]</span>
         </h3>
         
-        <div class="member-collection"></div>
+        <ul class="member-collection">
+          <?php foreach ($last_week as $member): ?>
+          <li>
+            <?php echo $member["name"] ?> &mdash; 
+            <?php echo $member["title"] ?>
+            <span><?php echo $member["days_ago"] ?></span>
+          </li>
+          <?php endforeach ?>
+        </ul>
       </div>
 
       <div id="falling-behind">
         <h3 class="information-heading">
           <img src="images/yellow-bang.png" alt="Yellow Exclamation"/>
-          12 Members are falling behind &ndash; Some entries
+          <?php echo plural(count($last_4_months), "Member", "s") ?> 
+          are falling behind &ndash; Some entries
           <span>[ <a href="#falling-behind">show</a> ]</span>
         </h3>
         
@@ -135,7 +153,8 @@
       <div id="no-entries">
         <h3 class="information-heading">
           <img src="images/red-x.png" alt="Red X"/>
-          12 Members have no entries yet
+          <?php echo plural(count($slackers), "Member", "s") ?> 
+          have no entries in the past 4 months
           <span>[ <a href="#no-entries">show</a> ]</span>
         </h3>
         
@@ -157,11 +176,12 @@
       $(".member-collection").hide();
       
       $("h3.information-heading a").click(function() {
-        var div = $(this).parents("div").children("div:first");
+        var div = $(this).parents("div").children(".member-collection");
         div.toggle();
         if ($(this).html() == "hide") {
-          document.location.hash = "";
           $(this).html("show");
+          document.location.hash = '#none';
+          return false;
         }
         else {
           $(this).html("hide");
