@@ -1,0 +1,128 @@
+body {
+  font: medium/1.5em Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+em { font-style: italic; }
+h1 { font-size:2.25em;  /* 16x2.25=36 */ }
+h2 { font-size:1.5em;   /* 16x1.5=24 */ }
+h3 { font-size:1.125em; /* 16x1.125=18 */ }
+h4 { font-size:0.875em; /* 16x0.875=14 */ }
+p, .member-collection li  { font-size:0.75em;  /* 16x0.75=12 */ }
+
+#page {
+  font-size: 100%;
+  width: 59em; /* 976.0px at 16px base – with a 1em padding*/
+  margin: 0 auto;
+  padding: 1em;
+/*      background: url('images/grid.png') repeat-y; /* grid - remove */*/
+  overflow: auto;
+}
+
+h1 { 
+  margin-bottom: 0.444em; /* 16.0px at 36px base */
+}
+
+h1 img {
+  width: 13.667em; /* 492.0px at 36px base */
+}
+
+.about {
+  font-size: 1.125em;
+  width: 30.222em; /* 544.0px at 18px base */
+  font-weight: normal;
+  margin-bottom: 1.778em; /* 32.0px at 18px base */
+}
+
+h3.information-heading {
+  height: 1.778em; /* 32.0px at 18px base */
+  background: url('images/bottom-white-grad.png') repeat-x bottom;
+  line-height: 0.1em;
+  position: relative;
+}
+
+h3.information-heading img {
+  width: 1.333em; /* 24.0px at 18px base */
+  margin: 0.2em 1em;
+  vertical-align: -0.5em;
+}
+
+h3.information-heading span {
+  font-size: 0.667em; /* 12.0px at 18px base */
+  right: 1em;
+  margin-top: 1.3em;
+  position: absolute;
+}
+
+#member-groupings {
+  width: 39em;
+  float: left;
+}
+
+#member-groupings div {
+  margin-bottom: 2em;
+}
+    
+#member-groupings #on-target h3 {
+  background-color: #92c076;
+}
+
+#member-groupings #falling-behind h3 {
+  background-color: #f36f65;
+}
+
+#member-groupings #alumni h3 {
+  background-color: #ece54d;
+}
+
+.member-collection {
+  background: white url('images/top-black-grad.png') repeat-x top;
+  border: 1px solid #aaa;
+  border-top: none;
+  padding-top: 0.5em;
+  overflow: auto;
+}
+
+.member-collection li{
+  margin-left: 1.333em;
+  width: 288px;
+  float: left;
+  margin-bottom: 1.333em;
+/*      margin-right: 24px;*/
+/*      outline: 1px solid green;*/
+  line-height: 1.5em;
+  min-height: 8em;
+  position: relative;
+}
+
+.member-collection li img.avatar {
+  width: 4.000em; /* 48.0px at 12px base */
+  float: left;
+  margin-right: 1.333em; /* 16.0px at 12px base */
+}
+
+.member-collection li .info {
+  position: absolute;
+  margin-left: 5.333em;
+}
+
+#spotlight {
+  width: 14em;
+  float: right;
+}
+
+#spotlight h3 {
+  text-align: center;
+  background-color: #f1ea51;
+}
+
+#spotlight h3 img {
+  margin: 0.2em 0.2em;
+}
+
+#spotlight div {
+  border: 1px solid #999;
+  border-top: none;
+  font-size: 0.875em;
+  padding: 1em;
+}

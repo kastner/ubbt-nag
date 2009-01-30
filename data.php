@@ -49,7 +49,7 @@ function peopleWithEntriesDaysAgo($newer, $older = 0, $team = "cb_team") {
 
   $team_option = "AND cb_team = !";
 
-  if ($team < 1) { $team_option = "AND cb_team NOT !"; $team *= -1; }
+  if ($team < 1) { $team_option = "AND cb_team <> !"; $team *= -1; }
   
   $sql = "SELECT u.id, u.username, u.email, u.name, title, c.created,
             pro.avatar, cb_team,
@@ -64,7 +64,7 @@ function peopleWithEntriesDaysAgo($newer, $older = 0, $team = "cb_team") {
             GROUP BY created_by
           ) as x ON x.created_by = c.created_by and x.created = c.created 
           WHERE sectionid = 9
-          AND cb_team = !
+          $team_option
           AND TO_DAYS(NOW()) - TO_DAYS(c.created) BETWEEN ! AND !
           GROUP BY u.id 
           ORDER BY days_ago";
