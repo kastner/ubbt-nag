@@ -1,9 +1,9 @@
 <?php
 
 require('data.php');
-$last_week = peopleWithEntriesDaysAgo(7);
-$last_4_months = peopleWithEntriesDaysAgo((30 * 4), 8);
-$slackers = peopleWithEntriesDaysAgo(9999999, (30*4) + 1);
+$last_week = peopleOnTeamWithEntriesBeforeXDays(CURRENT_TEAM, 7);
+$slackers = peopleOnTeamWithEntriesAfterXDays(CURRENT_TEAM, 7);
+$alumni = peopleNotOnTeamWithEntries(CURRENT_TEAM);
 $spotlight = $last_week[rand(0, count($last_week)-1)];
 
 ?>
@@ -87,11 +87,12 @@ $spotlight = $last_week[rand(0, count($last_week)-1)];
     }
     
     #member-groupings #falling-behind h3 {
-      background-color: #ece54d;
+      background-color: #f36f65;
     }
 
     #member-groupings #no-entries h3 {
-      background-color: #f36f65;
+/*      ece54d*/
+/*      background-color: #f36f65;*/
     }
     
     .member-collection {
@@ -150,29 +151,29 @@ $spotlight = $last_week[rand(0, count($last_week)-1)];
 
       <div id="falling-behind">
         <h3 class="information-heading">
-          <img src="images/yellow-bang.png" alt="Yellow Exclamation"/>
-          <?php echo plural(count($last_4_months), "Member", "s") ?> 
-          are falling behind &ndash; an entry in the past 4 months
+          <img src="images/red-x.png" alt="Red X"/>
+          <?php echo plural(count($slackers), "Member", "s") ?> 
+          are falling behind
           <span>[ <a href="#falling-behind">show</a> ]</span>
         </h3>
         
         <ul class="member-collection">
-          <?php foreach ($last_4_months as $member): ?>
+          <?php foreach ($slackers as $member): ?>
           <?php include "_member_post_info.php"; ?>
           <?php endforeach ?>
         </ul>
       </div>
 
-      <div id="no-entries">
+      <div id="alumni">
         <h3 class="information-heading">
-          <img src="images/red-x.png" alt="Red X"/>
-          <?php echo plural(count($slackers), "Member", "s") ?> 
-          have no entries in the past 4 months
-          <span>[ <a href="#no-entries">show</a> ]</span>
+          <img src="images/yellow-bang.png" alt="Yellow Exclamation"/>
+          <?php echo plural(count($alumni), "Alumni member", "s") ?> 
+          have at least one entry
+          <span>[ <a href="#alumni">show</a> ]</span>
         </h3>
         
-        <ul class="member-collection">
-          <?php foreach ($slackers as $member): ?>
+        <ul class="alumni-collection">
+          <?php foreach ($alumni as $member): ?>
           <?php include "_member_post_info.php"; ?>
           <?php endforeach ?>
         </ul>

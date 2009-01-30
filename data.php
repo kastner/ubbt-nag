@@ -1,6 +1,8 @@
 <?php
 require_once("DB.php");
 
+define('CURRENT_TEAM', 6);
+
 function handleErrors($error) {
     echo "An error occurred while trying to run your query.<br>\n";
     echo "Error message: " . $error->getMessage() . "<br>\n";
@@ -28,12 +30,32 @@ function streakForPerson($person_id) {
   return $streak;
 }
 
-function peopleWithEntriesDaysAgo($newer, $older = 0) {
+function peopleOnTeamWithEntriesBeforeXDays($team, $before) {
+  return peopleWithEntriesDaysAgo($before, 0, $team);
+}
+
+function peopleOnTeamWithEntriesAfterXDays($team, $after) {
+  return peopleWithEntriesDaysAgo(99999999, $after + 1, $team);
+}
+
+function peopleNotOnTeamWithEntries($team) {
+  return peopleWithEntriesDaysAgo(9999999, 0, -1 * $team);
+}
+
+function peopleWithEntriesDaysAgo($newer, $older = 0, $team = "cb_team") {
   global $db;
   
-  $sql = "SELECT u.id, u.username, u.email, u.name, title, c.created, 
+  if (!is_numeric($team) && $team != "cb_team") { return array(); }
+
+  $team_option = "AND cb_team = !";
+
+  if ($team < 1) { $team_option = "AND cb_team NOT !"; $team *= -1; }
+  
+  $sql = "SELECT u.id, u.username, u.email, u.name, title, c.created,
+            pro.avatar, cb_team,
             TO_DAYS(NOW()) - TO_DAYS(c.created) days_ago
-          FROM jos_users u 
+          FROM jos_users u
+          LEFT JOIN jos_comprofiler pro ON pro.user_id = u.id
           LEFT JOIN jos_content c ON c.created_by = u.id 
           INNER JOIN (
             SELECT created_by, MAX(created) created 
@@ -42,10 +64,11 @@ function peopleWithEntriesDaysAgo($newer, $older = 0) {
             GROUP BY created_by
           ) as x ON x.created_by = c.created_by and x.created = c.created 
           WHERE sectionid = 9
+          AND cb_team = !
           AND TO_DAYS(NOW()) - TO_DAYS(c.created) BETWEEN ! AND !
           GROUP BY u.id 
           ORDER BY days_ago";
-  return $db->getAll($sql, array($older, $newer));
+  return $db->getAll($sql, array($team, $older, $newer));
 }
 
 function peopleWithoutEntries() {
